@@ -12,15 +12,17 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from app.ingest import ingest_dir  # noqa: E402
-from app.store import VectorStore  # noqa: E402
+from app.ingest import ingest_dir
+from app.store import VectorStore
 
 
 def main() -> int:
     print("1. Ingesting data/ ...")
     started = time.perf_counter()
     chunks = ingest_dir()
-    print(f"   -> {len(chunks)} chunks in {(time.perf_counter() - started) * 1000:.0f}ms")
+    print(
+        f"   -> {len(chunks)} chunks in {(time.perf_counter() - started) * 1000:.0f}ms"
+    )
     if not chunks:
         print("   !! data/ is empty. Drop a PDF, .txt, .md or .docx in there.")
         return 1
@@ -29,7 +31,9 @@ def main() -> int:
     started = time.perf_counter()
     store = VectorStore()
     added = store.add(chunks)
-    print(f"   -> indexed {added} chunks in {(time.perf_counter() - started) * 1000:.0f}ms")
+    print(
+        f"   -> indexed {added} chunks in {(time.perf_counter() - started) * 1000:.0f}ms"
+    )
 
     questions = [
         "How many days do I have to request a refund?",

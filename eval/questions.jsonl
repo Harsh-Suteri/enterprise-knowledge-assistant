@@ -1,0 +1,15 @@
+{"question": "How many days do I have to request a refund?", "expect": "14 days", "section": "Refund"}
+{"question": "How much parental leave do primary caregivers get?", "expect": "26 weeks", "section": "Parental Leave"}
+{"question": "How much parental leave do secondary caregivers get?", "expect": "4 weeks", "section": "Parental Leave"}
+{"question": "Who approves expense claims above 50,000 rupees?", "expect": "Finance Head", "section": "Expenses"}
+{"question": "Who must sign off on claims above 2,00,000?", "expect": "Chief Financial Officer", "section": "Expenses"}
+{"question": "How many days of paid annual leave do employees accrue?", "expect": "18 days", "section": "Annual Leave"}
+{"question": "How many sick leave days are employees entitled to?", "expect": "12 days", "section": "Sick Leave"}
+{"question": "What is the notice period for manager grade and above?", "expect": "60 days", "section": "Notice Period"}
+{"question": "How many days per week can I work remotely?", "expect": "2 days per week", "section": "Remote Work"}
+{"question": "What are the core hours for remote employees?", "expect": "11:00 to 17:00", "section": "Remote Work"}
+{"question": "Within how many days must expense claims be submitted?", "expect": "30 days", "section": "Expenses"}
+{"question": "How long does it take to process an approved refund?", "expect": "7 working days", "section": "Refund"}
+{"question": "Is a receipt required for small expense claims?", "expect": "Receipts are mandatory", "section": "Expenses"}
+{"question": "How many unused annual leave days can be carried forward?", "expect": "10 unused days", "section": "Annual Leave"}
+{"question": "Can I store company data on my personal laptop?", "expect": "must not be stored on personal devices", "section": "Infosec"}

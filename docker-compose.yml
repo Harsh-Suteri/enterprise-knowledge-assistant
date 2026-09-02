@@ -1,0 +1,21 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      # Empty is fine — the service runs retrieval-only without a key.
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - CHUNK_SIZE=${CHUNK_SIZE:-300}
+      - CHUNK_OVERLAP=${CHUNK_OVERLAP:-45}
+      - TOP_K=${TOP_K:-5}
+    volumes:
+      # Documents are mounted read-only: the container indexes them but
+      # can never modify the source corpus.
+      - ./data:/app/data:ro
+      # The index itself is a named volume so it survives rebuilds.
+      - chroma-data:/app/.chroma
+    restart: unless-stopped
+
+volumes:
+  chroma-data:

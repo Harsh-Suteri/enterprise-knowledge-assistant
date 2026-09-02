@@ -80,7 +80,35 @@ def ingest(req: IngestRequest):
     added = store.add(chunks)
     elapsed_ms = round((time.perf_counter() - started) * 1000)
     log.info(f"ingested {added} chunks in {elapsed_ms}ms")
-    return {"chunks_added": added, "total_indexed": store.count(), "elapsed_ms": elapsed_ms}
+    return {
+        "chunks_added": added,
+        "total_indexed": store.count(),
+        "elapsed_ms": elapsed_ms,
+    }
+
+
+@app.post("/agent")
+def agent(req: QueryRequest):
+    """Multi-step answering: the model runs as many searches as it needs.
+
+    Slower and costlier than /query — use it for questions that require
+    combining facts from different parts of the corpus.
+    """
+    store = state["store"]
+    if store.count() == 0:
+        raise HTTPException(409, "Nothing indexed yet. POST /ingest first.")
+    if not settings.openai_api_key:
+        raise HTTPException(
+            501, "Agent path requires OPENAI_API_KEY. Use /query instead."
+        )
+
+    from app.agent import ask
+
+    started = time.perf_counter()
+    result = ask(req.question, store)
+    result["elapsed_ms"] = round((time.perf_counter() - started) * 1000)
+    log.info(f"agent searches={result['searches']} {result['elapsed_ms']}ms")
+    return result
 
 
 @app.post("/query")
@@ -92,7 +120,9 @@ def query(req: QueryRequest):
     started = time.perf_counter()
     result = answer_question(req.question, store, k=req.k)
     elapsed_ms = round((time.perf_counter() - started) * 1000)
-    log.info(f'query="{req.question[:60]}" passages={len(result.passages)} {elapsed_ms}ms')
+    log.info(
+        f'query="{req.question[:60]}" passages={len(result.passages)} {elapsed_ms}ms'
+    )
 
     return {
         "question": result.question,

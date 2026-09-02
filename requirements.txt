@@ -18,8 +18,15 @@ python-docx
 sentence-transformers==6.0.1
 chromadb==1.5.9
 
-# --- LLM (optional until you add a key) ---
+# --- agent + LLM (optional until you add a key) ---
+langgraph==1.2.11
+langchain-openai
 openai
+
+# --- ui ---
+streamlit
+requests
 
 # --- dev ---
 pytest
+ruff

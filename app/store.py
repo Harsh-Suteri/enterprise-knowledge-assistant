@@ -65,7 +65,9 @@ class VectorStore:
             ids=[c.id for c in chunks],
             documents=[c.text for c in chunks],
             embeddings=embed([c.text for c in chunks]),
-            metadatas=[{"source": c.source, "chunk_index": c.chunk_index} for c in chunks],
+            metadatas=[
+                {"source": c.source, "chunk_index": c.chunk_index} for c in chunks
+            ],
         )
         return len(chunks)
 

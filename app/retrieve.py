@@ -41,7 +41,9 @@ def answer_question(question: str, store: VectorStore, k: int | None = None) -> 
     passages = store.search(question, k=k)
 
     if not passages:
-        return Answer(question, "I don't have enough information to answer that.", [], False)
+        return Answer(
+            question, "I don't have enough information to answer that.", [], False
+        )
 
     if not settings.openai_api_key:
         # Retrieval-only mode: no key configured, so return evidence without

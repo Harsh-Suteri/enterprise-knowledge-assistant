@@ -20,12 +20,15 @@ class Settings(BaseSettings):
     chroma_dir: Path = ROOT / ".chroma"
 
     # --- chunking ---
-    # 800 chars ~= 200 tokens. Big enough to hold a complete idea, small
-    # enough that one chunk isn't half the context window.
-    chunk_size: int = 800
+    # 300 was chosen by measurement, not by feel. See eval/run_eval.py:
+    # at k=1 over the sample corpus, 300 hits 100% with p50 11ms, while 800
+    # also hits 100% but at 28ms, and 200 drops to 87% because answers start
+    # splitting across chunk boundaries. Re-run the sweep on your own corpus
+    # before trusting this number.
+    chunk_size: int = 300
     # Overlap stops a sentence that straddles a boundary from being lost
-    # to both chunks. ~15% is the usual starting point.
-    chunk_overlap: int = 120
+    # to both chunks. ~15% of chunk size.
+    chunk_overlap: int = 45
 
     # --- embeddings ---
     # Local model: no API key, no per-call cost, runs on CPU.
