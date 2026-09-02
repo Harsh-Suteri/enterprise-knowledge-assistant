@@ -1,0 +1,25 @@
+# Pinned where the exact version was verified; ranges elsewhere so pip can
+# resolve a compatible set. Re-pin everything with `pip freeze` once it works.
+
+# --- core ---
+fastapi==0.141.1
+uvicorn[standard]
+pydantic>=2.9
+pydantic-settings>=2.5
+python-dotenv
+
+# --- document loading + chunking ---
+langchain==1.3.18
+langchain-text-splitters==1.1.2
+pypdf
+python-docx
+
+# --- embeddings + vector store ---
+sentence-transformers==6.0.1
+chromadb==1.5.9
+
+# --- LLM (optional until you add a key) ---
+openai
+
+# --- dev ---
+pytest
