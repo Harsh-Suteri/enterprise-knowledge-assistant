@@ -31,14 +31,26 @@ COPY --chown=appuser:appuser scripts/ ./scripts/
 
 # Bake the embedding model into the image so the first request isn't a
 # 90 MB download. Trades image size for predictable cold-start latency.
-ENV HF_HOME=/home/appuser/.cache/huggingface
-RUN mkdir -p $HF_HOME && chown -R appuser:appuser /home/appuser
+ENV HF_HOME=/home/appuser/.cache/huggingface \
+    CHROMA_DIR=/app/.chroma
+
+# appuser has to own every path it writes at runtime. WORKDIR creates /app as
+# root, and the COPY --chown lines above only cover the files copied into it --
+# so Chroma could not mkdir its persistence directory and startup died with
+# PermissionError on /app/.chroma. Create it and hand over /app before dropping
+# privileges.
+RUN mkdir -p "$HF_HOME" "$CHROMA_DIR" \
+    && chown -R appuser:appuser /home/appuser /app
+
 USER appuser
 RUN python -c "from sentence_transformers import SentenceTransformer; \
     SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')"
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1
+
+# The vector store lives here; mount a volume to keep an index across restarts.
+VOLUME ["/app/.chroma"]
 
 EXPOSE 8000
 
