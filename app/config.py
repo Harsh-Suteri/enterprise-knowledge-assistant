@@ -6,6 +6,7 @@ hard-code a chunk size or a model name.
 """
 
 from pathlib import Path
+from typing import Literal
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -41,6 +42,18 @@ class Settings(BaseSettings):
     # --- generation (optional; leave key unset to run retrieval-only) ---
     openai_api_key: str | None = None
     llm_model: str = "gpt-4o-mini"
+
+    # --- generation backend ---
+    # "openai" or "ollama". Ollama exposes an OpenAI-compatible API, so the
+    # same client class talks to either one and swapping them is an env var
+    # rather than a second code path. Local inference costs nothing per call
+    # and keeps document text on the machine, which matters when the corpus
+    # is confidential; the tradeoff is quality and latency.
+    llm_backend: Literal["openai", "ollama"] = "openai"
+    # From inside a container this must be host.docker.internal, not localhost:
+    # localhost there is the container itself, not the host running Ollama.
+    ollama_base_url: str = "http://localhost:11434/v1"
+    ollama_model: str = "llama3.2:3b"
 
     collection_name: str = "enterprise_docs"
 

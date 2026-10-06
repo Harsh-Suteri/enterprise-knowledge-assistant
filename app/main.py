@@ -15,7 +15,7 @@ from pydantic import BaseModel, Field
 
 from app.config import settings
 from app.ingest import ingest_dir, ingest_file
-from app.retrieve import answer_question
+from app.retrieve import answer_question, backend_name
 from app.store import VectorStore
 
 logging.basicConfig(
@@ -58,7 +58,11 @@ class IngestRequest(BaseModel):
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "chunks_indexed": state["store"].count()}
+    return {
+        "status": "ok",
+        "chunks_indexed": state["store"].count(),
+        "llm_backend": backend_name(),
+    }
 
 
 @app.post("/ingest")
@@ -98,6 +102,9 @@ def agent(req: QueryRequest):
     if store.count() == 0:
         raise HTTPException(409, "Nothing indexed yet. POST /ingest first.")
     if not settings.openai_api_key:
+        # Deliberately not wired to the local Ollama backend: multi-step
+        # tool calling is unreliable at 3B, and a confused agent loop is
+        # worse than a clear refusal. /query runs fine on a local model.
         raise HTTPException(
             501, "Agent path requires OPENAI_API_KEY. Use /query instead."
         )

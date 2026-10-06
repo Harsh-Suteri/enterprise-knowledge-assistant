@@ -3,9 +3,12 @@
 Kept separate from the vector store so the "how do we find context" logic
 and the "how do we store vectors" logic can change independently.
 
-If no OpenAI key is configured the API still works — it returns the
-retrieved passages without a generated answer. That means you can build,
-test and demo the retrieval half before spending anything on tokens.
+Generation has three states, in order of cost: no backend configured at all
+(the API returns retrieved passages with no synthesised answer, so retrieval
+can be built and demoed before spending anything), a local model served by
+Ollama, or a hosted OpenAI model. Ollama implements the OpenAI wire format,
+so one client class covers both and the choice is configuration, not a branch
+in the request path.
 """
 
 from dataclasses import dataclass
@@ -37,6 +40,31 @@ def _format_context(passages: list[dict]) -> str:
     )
 
 
+def backend_name() -> str | None:
+    """Which generation backend is configured, or None for retrieval-only."""
+    if settings.llm_backend == "ollama":
+        return f"ollama:{settings.ollama_model}"
+    if settings.openai_api_key:
+        return f"openai:{settings.llm_model}"
+    return None
+
+
+def _client():
+    """Build the LLM client, or return None if generation is unavailable.
+
+    Ollama does not check the API key but the OpenAI client requires one to
+    be set, hence the placeholder.
+    """
+    from openai import OpenAI
+
+    if settings.llm_backend == "ollama":
+        client = OpenAI(base_url=settings.ollama_base_url, api_key="ollama")
+        return client, settings.ollama_model
+    if settings.openai_api_key:
+        return OpenAI(api_key=settings.openai_api_key), settings.llm_model
+    return None
+
+
 def answer_question(question: str, store: VectorStore, k: int | None = None) -> Answer:
     passages = store.search(question, k=k)
 
@@ -45,16 +73,15 @@ def answer_question(question: str, store: VectorStore, k: int | None = None) -> 
             question, "I don't have enough information to answer that.", [], False
         )
 
-    if not settings.openai_api_key:
-        # Retrieval-only mode: no key configured, so return evidence without
-        # a synthesised answer rather than failing.
+    configured = _client()
+    if configured is None:
+        # Retrieval-only mode: no backend configured, so return the evidence
+        # without a synthesised answer rather than failing.
         return Answer(question, None, passages, False)
 
-    from openai import OpenAI
-
-    client = OpenAI(api_key=settings.openai_api_key)
+    client, model = configured
     response = client.chat.completions.create(
-        model=settings.llm_model,
+        model=model,
         temperature=0,  # deterministic: same context should give the same answer
         messages=[
             {"role": "system", "content": SYSTEM_PROMPT},
