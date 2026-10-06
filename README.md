@@ -185,6 +185,47 @@ Chroma index lives in a named volume so it survives rebuilds.
 
 ---
 
+## Local inference
+
+Generation runs against either a hosted OpenAI model or a local one served by
+[Ollama](https://ollama.com). Ollama implements the OpenAI wire format, so the
+same client class drives both and switching is configuration rather than a
+second code path:
+
+```bash
+ollama pull llama3.2:3b
+LLM_BACKEND=ollama uvicorn app.main:app
+```
+
+`GET /health` reports which backend is live:
+
+```json
+{"status": "ok", "chunks_indexed": 14, "llm_backend": "ollama:llama3.2:3b"}
+```
+
+**Why bother.** No key, no per-call cost, and document text never leaves the
+machine — which is the difference between a demo and something you can point at
+a confidential corpus.
+
+**The tradeoff, measured.** On CPU with `llama3.2:3b` (Q4_K_M), a single-shot
+`/query` takes about **17 s** end to end, against roughly 1-2 s for
+`gpt-4o-mini`. Local is free and private; it is not fast.
+
+Grounding survives the smaller model. Asked something outside the corpus, the
+3B model still returns `"I don't have enough information to answer that."` with
+`grounded: false` rather than inventing an answer — the citation discipline is
+in the prompt and the retrieval contract, not in model size.
+
+**`/agent` is deliberately not wired to the local backend.** Multi-step tool
+calling is unreliable at 3B, and a confused agent loop is worse than a clear
+501. Single-shot RAG is the path that works locally.
+
+From inside a container, point `OLLAMA_BASE_URL` at
+`http://host.docker.internal:11434/v1` — `localhost` there is the container
+itself, not the host running Ollama.
+
+---
+
 ## Configuration
 
 All tunables in `app/config.py`, overridable via `.env` (copy `.env.example`).
@@ -195,7 +236,10 @@ All tunables in `app/config.py`, overridable via `.env` (copy `.env.example`).
 | `CHUNK_OVERLAP` | 45 | ~15% of chunk size |
 | `TOP_K` | 5 | Passages sent to the model |
 | `OPENAI_API_KEY` | unset | Omit for retrieval-only mode |
-| `LLM_MODEL` | gpt-4o-mini | |
+| `LLM_MODEL` | gpt-4o-mini | Used when `LLM_BACKEND=openai` |
+| `LLM_BACKEND` | openai | `openai` or `ollama` — see Local inference |
+| `OLLAMA_BASE_URL` | http://localhost:11434/v1 | `host.docker.internal` from a container |
+| `OLLAMA_MODEL` | llama3.2:3b | Any model Ollama has pulled |
 
 ---
 
