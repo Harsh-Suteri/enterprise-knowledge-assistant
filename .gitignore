@@ -6,4 +6,7 @@ venv/
 .venv/
 data/*
 !data/.gitkeep
+# The eval corpus is a fixture, not user data: eval/questions.jsonl is
+# written against it, so CI scores an empty index without it.
+!data/sample_hr_policy.md
 .pytest_cache/

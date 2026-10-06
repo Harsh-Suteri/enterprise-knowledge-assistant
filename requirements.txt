@@ -15,6 +15,15 @@ pypdf
 python-docx
 
 # --- embeddings + vector store ---
+# sentence-transformers pulls in torch, and the default PyPI torch wheel bundles
+# the entire CUDA stack (~2.4 GB of nvidia-* packages: cudnn, cublas, nccl, cufft).
+# The MiniLM embedder runs on CPU here, so that payload is never executed. Take
+# torch from PyTorch's CPU index instead -- same version, none of the GPU weight.
+--extra-index-url https://download.pytorch.org/whl/cpu
+# macOS has no +cpu variant (its torch is CPU/MPS already), so mark by platform
+# or pip fails on a Mac with "No matching distribution found".
+torch==2.14.1+cpu ; sys_platform != "darwin"
+torch==2.14.1 ; sys_platform == "darwin"
 sentence-transformers==6.0.1
 chromadb==1.5.9
 
