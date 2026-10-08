@@ -226,6 +226,44 @@ itself, not the host running Ollama.
 
 ---
 
+## Fine-tuning the grounding contract — `finetune/`
+
+Grounding survives at 3B because the model is big enough to follow the system
+prompt. It does not survive at 135M: that model invents answers instead of
+refusing. So the question is whether the behaviour can be **trained in** rather
+than prompted in — which matters, because in RAG the facts come from retrieval
+and what the generator owes you is knowing when it has nothing.
+
+`finetune/` LoRA-tunes `SmolLM2-135M-Instruct` on that contract: 4.88M
+trainable parameters (3.5%), two epochs, **76 minutes on 4 CPU cores, no GPU**.
+It trains on three unrelated policy documents and is evaluated on
+`sample_hr_policy.md`, which is **absent from training** — so the result
+measures the behaviour generalising, not memorisation.
+
+| metric | base | + LoRA |
+|---|---|---|
+| refusal accuracy (12 unanswerable) | 0% | **100%** |
+| citation rate | 7% | **67%** |
+| precision when it answers | 47% | **70%** |
+| false refusal rate | 0% | **33%** (worse) |
+| p50 latency | 4724 ms | **1889 ms** |
+
+Before, asked to name a CEO the handbook never mentions, it produced
+"**John Smith**". After, it refuses — every time.
+
+**The regression is real and reported, not buried:** a third of the training
+set was refusal examples, and the model learned "refuse" as a slightly too
+cheap default, so it now declines five questions it could have answered. Full
+analysis, including a case where substring scoring marks a correct answer
+wrong, is in [`finetune/README.md`](finetune/README.md).
+
+> QLoRA would be the natural choice and is what most job specs ask for. It
+> needs `bitsandbytes`, which needs CUDA; this was trained on an i5-10310U with
+> no NVIDIA GPU, so fp32 LoRA on a small model is the honest version of the
+> experiment on this hardware.
+
+---
+
 ## Configuration
 
 All tunables in `app/config.py`, overridable via `.env` (copy `.env.example`).
@@ -255,7 +293,15 @@ app/
   main.py         FastAPI service
 eval/
   questions.jsonl question set with expected answers
+  unanswerable_questions.jsonl  questions the corpus cannot answer
   run_eval.py     hit-rate, MRR, latency, chunk-size sweep
+finetune/
+  corpus/         training-only documents (never evaluated on)
+  facts/          question/answer/gold triples per document
+  build_dataset.py  corpus -> grounded + refusal training examples
+  train_lora.py     LoRA fine-tune, CPU, no GPU required
+  eval_generation.py  answer/citation/refusal metrics
+  compare.py        before/after table from two result files
 scripts/
   smoke_test.py   end-to-end check, no server
 tests/            unit tests

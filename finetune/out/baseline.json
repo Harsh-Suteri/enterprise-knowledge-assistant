@@ -1,0 +1,207 @@
+{
+  "model": "HuggingFaceTB/SmolLM2-135M-Instruct",
+  "adapter": null,
+  "answerable": 15,
+  "unanswerable": 12,
+  "answer_accuracy": 0.4666666666666667,
+  "citation_rate": 0.06666666666666667,
+  "false_refusal_rate": 0.0,
+  "refusal_accuracy": 0.0,
+  "p50_ms": 4723.7597000203095,
+  "answerable_rows": [
+    {
+      "question": "How many days do I have to request a refund?",
+      "expect": "14 days",
+      "section": "Refund",
+      "output": "The answer is: 30 days.",
+      "correct": false,
+      "refused": false
+    },
+    {
+      "question": "How much parental leave do primary caregivers get?",
+      "expect": "26 weeks",
+      "section": "Parental Leave",
+      "output": "Question: How much parental leave do primary caregivers get?\n\nAnswer: 26 weeks\n\nExplanation: The passage states that primary caregivers are entitled to 26 weeks of paid parental leave. The answer is 26 weeks.",
+      "correct": true,
+      "refused": false
+    },
+    {
+      "question": "How much parental leave do secondary caregivers get?",
+      "expect": "4 weeks",
+      "section": "Parental Leave",
+      "output": "Question: How much parental leave do secondary caregivers get?\n\nAnswer: 4 weeks\n\nExplanation: The passage states that secondary caregivers are entitled to 4 weeks of paid parental leave. The question asks how much parental leave secondary caregivers get.",
+      "correct": true,
+      "refused": false
+    },
+    {
+      "question": "Who approves expense claims above 50,000 rupees?",
+      "expect": "Finance Head",
+      "section": "Expenses",
+      "output": "Question: Who approves expense claims above 50,000 rupees?\n\nAnswer: The Finance Head.",
+      "correct": true,
+      "refused": false
+    },
+    {
+      "question": "Who must sign off on claims above 2,00,000?",
+      "expect": "Chief Financial Officer",
+      "section": "Expenses",
+      "output": "Question: Who must sign off on claims above 2,00,000?\n\nAnswer: The Finance Head.",
+      "correct": false,
+      "refused": false
+    },
+    {
+      "question": "How many days of paid annual leave do employees accrue?",
+      "expect": "18 days",
+      "section": "Annual Leave",
+      "output": "The correct answer is: 4 weeks.",
+      "correct": false,
+      "refused": false
+    },
+    {
+      "question": "How many sick leave days are employees entitled to?",
+      "expect": "12 days",
+      "section": "Sick Leave",
+      "output": "Question: How many sick leave days are employees entitled to?\n\nAnswer: Employees are entitled to 12 days of paid sick leave per year.\n\nExplanation:\n- [1] (source: sample_hr_policy.md)\n- [2] (source: sample_hr_policy",
+      "correct": true,
+      "refused": false
+    },
+    {
+      "question": "What is the notice period for manager grade and above?",
+      "expect": "60 days",
+      "section": "Notice Period",
+      "output": "The notice period for manager grade and above is 30 days.",
+      "correct": false,
+      "refused": false
+    },
+    {
+      "question": "How many days per week can I work remotely?",
+      "expect": "2 days per week",
+      "section": "Remote Work",
+      "output": "You can work remotely up to 2 days per week with manager approval. The number of days per week depends on the department head's approval.",
+      "correct": true,
+      "refused": false
+    },
+    {
+      "question": "What are the core hours for remote employees?",
+      "expect": "11:00 to 17:00",
+      "section": "Remote Work",
+      "output": "1. Expense Reimbursement\n\nQuestion: What are the core hours for remote employees?\n\nAnswer: The core hours for remote employees are 11:00 to 17:00 IST.",
+      "correct": true,
+      "refused": false
+    },
+    {
+      "question": "Within how many days must expense claims be submitted?",
+      "expect": "30 days",
+      "section": "Expenses",
+      "output": "Question: How many days must expense claims be submitted?\n\nResponse: The customer-facing policy states that expenses must be submitted within **14 days** of the expense being incurred.",
+      "correct": false,
+      "refused": false
+    },
+    {
+      "question": "How long does it take to process an approved refund?",
+      "expect": "7 working days",
+      "section": "Refund",
+      "output": "Question: How long does it take to process an approved refund?\n\nAnswer: It depends on the type of refund and the amount of the refund.\n\n[Question]\n\n[Answer]\n\n[Question]\n\n[Answer]\n\n[Question]\n\n[Answer]\n\n[",
+      "correct": false,
+      "refused": false
+    },
+    {
+      "question": "Is a receipt required for small expense claims?",
+      "expect": "Receipts are mandatory",
+      "section": "Expenses",
+      "output": "Yes, a receipt is required for small expense claims.",
+      "correct": false,
+      "refused": false
+    },
+    {
+      "question": "How many unused annual leave days can be carried forward?",
+      "expect": "10 unused days",
+      "section": "Annual Leave",
+      "output": "The passage states that the average annual leave period is 30 days, and the standard notice period is 30 days.\n\nThe passage also states that the standard notice period is 60 days, and the average notice period is 30 days.\n\nSo, the answer is: 6",
+      "correct": false,
+      "refused": false
+    },
+    {
+      "question": "Can I store company data on my personal laptop?",
+      "expect": "must not be stored on personal devices",
+      "section": "Infosec",
+      "output": "The answer is: No.\n\nThe context states that the company data must not be stored on personal devices or cloud accounts. This means that the company data must be stored on a private server or a cloud-based storage system. The context does not mention any personal devices or cloud accounts. Therefore, the answer is",
+      "correct": true,
+      "refused": false
+    }
+  ],
+  "unanswerable_rows": [
+    {
+      "question": "What is the company's policy on stock options for employees?",
+      "why": "Equity is never mentioned in the handbook.",
+      "output": "1. Expense Reimbursement\n2. Employee Handbook (Extract)\n3. Leave Policy\n4. Leave Policy\n5. Leave Policy",
+      "refused": false
+    },
+    {
+      "question": "How many days of bereavement leave are employees entitled to?",
+      "why": "The leave section covers annual, sick and parental leave only.",
+      "output": "Question: How many days of bereavement leave are employees entitled to?\n\nAnswer: Employees are entitled to 12 days of paid annual leave per calendar year.",
+      "refused": false
+    },
+    {
+      "question": "What is the reimbursement rate per kilometre for using a personal car?",
+      "why": "Mileage is not covered by the expense section.",
+      "output": "Question: What is the reimbursement rate per kilometre for using a personal car?",
+      "refused": false
+    },
+    {
+      "question": "Who is the current Chief Executive Officer of Acme Technologies?",
+      "why": "No individuals are named in the document.",
+      "output": "The current Chief Executive Officer of Acme Technologies is **John Smith**.",
+      "refused": false
+    },
+    {
+      "question": "What is the probation period for new joiners?",
+      "why": "Probation is never mentioned.",
+      "output": "The context states that the probation period for new joiners is 6 months.",
+      "refused": false
+    },
+    {
+      "question": "How much notice must the company give before terminating an employee?",
+      "why": "The notice section covers employee-side notice only.",
+      "output": "The company must give the employee 30 days of paid leave per year, with 18 days of paid leave per calendar year. The notice period is 30 days.",
+      "refused": false
+    },
+    {
+      "question": "What health insurance cover is provided to dependants?",
+      "why": "No insurance or benefits section exists.",
+      "output": "Question: What health insurance cover is provided to dependants?",
+      "refused": false
+    },
+    {
+      "question": "Which public holidays does the company observe?",
+      "why": "No holiday calendar appears in the handbook.",
+      "output": "Question: Which public holidays does the company observe?\n\nAnswer: The company observes the following public holidays:\n\n- **10th Monday of January**: January 10th\n- **11th Monday of January**: January 11th\n- **12th Monday of January**: January",
+      "refused": false
+    },
+    {
+      "question": "What is the annual appraisal cycle and rating scale?",
+      "why": "Performance management is not in scope of this extract.",
+      "output": "The annual appraisal cycle and rating scale in Acme Technologies' Employee Handbook (Extract) is:\n\n- 1. Annual Leave: 18 days of paid annual leave per calendar year, accruing at 1.5 days per month.\n- 2. Full-time Leave: 1",
+      "refused": false
+    },
+    {
+      "question": "Can employees claim reimbursement for a home office chair?",
+      "why": "The remote work section sets no equipment entitlement.",
+      "output": "Yes, employees can claim reimbursement for a home office chair. The reimbursement is approved by the employee's reporting manager and the Finance Head.",
+      "refused": false
+    },
+    {
+      "question": "What is the maximum duration of unpaid sabbatical leave?",
+      "why": "Sabbaticals are not mentioned.",
+      "output": "The maximum duration of unpaid sabbatical leave is 30 days.",
+      "refused": false
+    },
+    {
+      "question": "How are overtime hours compensated?",
+      "why": "Overtime is absent from the document.",
+      "output": "Question: How are overtime hours compensated?",
+      "refused": false
+    }
+  ]
+}
