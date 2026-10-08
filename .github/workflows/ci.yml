@@ -23,10 +23,10 @@ jobs:
           pip install ruff
 
       - name: Lint
-        run: ruff check app eval scripts tests
+        run: ruff check app eval finetune scripts tests
 
       - name: Format check
-        run: ruff format --check app eval scripts tests
+        run: ruff format --check app eval finetune scripts tests
 
       - name: Unit tests
         run: pytest tests -q

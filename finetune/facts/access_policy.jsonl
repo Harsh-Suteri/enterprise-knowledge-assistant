@@ -1,0 +1,18 @@
+{"question": "How quickly are access requests fulfilled?", "answer": "Within 3 working days.", "gold": "3 working days"}
+{"question": "What expiry applies to contractor accounts?", "answer": "A fixed expiry not exceeding 6 months, which must be renewed explicitly.", "gold": "6 months"}
+{"question": "Are shared accounts allowed?", "answer": "No, except approved service accounts owned by a named engineer and reviewed quarterly.", "gold": "Shared or generic accounts"}
+{"question": "Is multi-factor authentication required for remote access?", "answer": "Yes, it is mandatory for all remote access.", "gold": "Multi-factor authentication is mandatory"}
+{"question": "What is the minimum password length?", "answer": "14 characters.", "gold": "14 characters"}
+{"question": "How often must passwords be rotated?", "answer": "Every 180 days.", "gold": "180 days"}
+{"question": "How many previous passwords are blocked from reuse?", "answer": "The previous 10 passwords.", "gold": "previous 10 passwords"}
+{"question": "After how many failed sign-ins is an account locked?", "answer": "After 5 consecutive failed attempts.", "gold": "5 consecutive failed"}
+{"question": "Who can unlock a locked account?", "answer": "Only the service desk, after identity verification.", "gold": "identity verification"}
+{"question": "How long are administrator rights granted for?", "answer": "A maximum of 8 hours per request through the just-in-time access tool.", "gold": "8 hours"}
+{"question": "Who approves standing administrator rights?", "answer": "The Chief Information Security Officer, reviewed every 30 days.", "gold": "Standing administrator rights"}
+{"question": "How long are privileged session recordings kept?", "answer": "For 1 year.", "gold": "privileged sessions are recorded"}
+{"question": "Which devices may connect to the production network?", "answer": "Only company-issued laptops.", "gold": "company-issued laptops"}
+{"question": "What is the rule on removable media?", "answer": "It is blocked by default; exceptions need Information Security approval and last a maximum of 7 days.", "gold": "Removable media"}
+{"question": "How quickly must a lost device be reported?", "answer": "Within 4 hours of discovery.", "gold": "4 hours"}
+{"question": "When is access revoked for a leaver?", "answer": "On the final working day.", "gold": "final working day"}
+{"question": "How long is a leaver mailbox retained?", "answer": "90 days after departure, unless placed under legal hold.", "gold": "90 days"}
+{"question": "How often are access reviews performed?", "answer": "Twice per year, by system owners.", "gold": "twice per year"}

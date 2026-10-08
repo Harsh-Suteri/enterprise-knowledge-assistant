@@ -1,0 +1,207 @@
+{
+  "model": "HuggingFaceTB/SmolLM2-135M-Instruct",
+  "adapter": "finetune/out/adapter",
+  "answerable": 15,
+  "unanswerable": 12,
+  "answer_accuracy": 0.4666666666666667,
+  "citation_rate": 0.6666666666666666,
+  "false_refusal_rate": 0.3333333333333333,
+  "refusal_accuracy": 1.0,
+  "p50_ms": 1889.3821999663487,
+  "answerable_rows": [
+    {
+      "question": "How many days do I have to request a refund?",
+      "expect": "14 days",
+      "section": "Refund",
+      "output": "I don't have enough information to answer that.",
+      "correct": false,
+      "refused": true
+    },
+    {
+      "question": "How much parental leave do primary caregivers get?",
+      "expect": "26 weeks",
+      "section": "Parental Leave",
+      "output": "26 weeks. [1]",
+      "correct": true,
+      "refused": false
+    },
+    {
+      "question": "How much parental leave do secondary caregivers get?",
+      "expect": "4 weeks",
+      "section": "Parental Leave",
+      "output": "4 weeks. [2]",
+      "correct": true,
+      "refused": false
+    },
+    {
+      "question": "Who approves expense claims above 50,000 rupees?",
+      "expect": "Finance Head",
+      "section": "Expenses",
+      "output": "The Finance Head. [2]",
+      "correct": true,
+      "refused": false
+    },
+    {
+      "question": "Who must sign off on claims above 2,00,000?",
+      "expect": "Chief Financial Officer",
+      "section": "Expenses",
+      "output": "The Chief Financial Officer. [3]",
+      "correct": true,
+      "refused": false
+    },
+    {
+      "question": "How many days of paid annual leave do employees accrue?",
+      "expect": "18 days",
+      "section": "Annual Leave",
+      "output": "18 days per year. [1]",
+      "correct": true,
+      "refused": false
+    },
+    {
+      "question": "How many sick leave days are employees entitled to?",
+      "expect": "12 days",
+      "section": "Sick Leave",
+      "output": "12 days per year. [1]",
+      "correct": true,
+      "refused": false
+    },
+    {
+      "question": "What is the notice period for manager grade and above?",
+      "expect": "60 days",
+      "section": "Notice Period",
+      "output": "30 days. [1]",
+      "correct": false,
+      "refused": false
+    },
+    {
+      "question": "How many days per week can I work remotely?",
+      "expect": "2 days per week",
+      "section": "Remote Work",
+      "output": "I don't have enough information to answer that.",
+      "correct": false,
+      "refused": true
+    },
+    {
+      "question": "What are the core hours for remote employees?",
+      "expect": "11:00 to 17:00",
+      "section": "Remote Work",
+      "output": "12 months. [2]",
+      "correct": false,
+      "refused": false
+    },
+    {
+      "question": "Within how many days must expense claims be submitted?",
+      "expect": "30 days",
+      "section": "Expenses",
+      "output": "Within 30 days. [1]",
+      "correct": true,
+      "refused": false
+    },
+    {
+      "question": "How long does it take to process an approved refund?",
+      "expect": "7 working days",
+      "section": "Refund",
+      "output": "I don't have enough information to answer that.",
+      "correct": false,
+      "refused": true
+    },
+    {
+      "question": "Is a receipt required for small expense claims?",
+      "expect": "Receipts are mandatory",
+      "section": "Expenses",
+      "output": "I don't have enough information to answer that.",
+      "correct": false,
+      "refused": true
+    },
+    {
+      "question": "How many unused annual leave days can be carried forward?",
+      "expect": "10 unused days",
+      "section": "Annual Leave",
+      "output": "10 days. [2]",
+      "correct": false,
+      "refused": false
+    },
+    {
+      "question": "Can I store company data on my personal laptop?",
+      "expect": "must not be stored on personal devices",
+      "section": "Infosec",
+      "output": "I don't have enough information to answer that.",
+      "correct": false,
+      "refused": true
+    }
+  ],
+  "unanswerable_rows": [
+    {
+      "question": "What is the company's policy on stock options for employees?",
+      "why": "Equity is never mentioned in the handbook.",
+      "output": "I don't have enough information to answer that.",
+      "refused": true
+    },
+    {
+      "question": "How many days of bereavement leave are employees entitled to?",
+      "why": "The leave section covers annual, sick and parental leave only.",
+      "output": "I don't have enough information to answer that.",
+      "refused": true
+    },
+    {
+      "question": "What is the reimbursement rate per kilometre for using a personal car?",
+      "why": "Mileage is not covered by the expense section.",
+      "output": "I don't have enough information to answer that.",
+      "refused": true
+    },
+    {
+      "question": "Who is the current Chief Executive Officer of Acme Technologies?",
+      "why": "No individuals are named in the document.",
+      "output": "I don't have enough information to answer that.",
+      "refused": true
+    },
+    {
+      "question": "What is the probation period for new joiners?",
+      "why": "Probation is never mentioned.",
+      "output": "I don't have enough information to answer that.",
+      "refused": true
+    },
+    {
+      "question": "How much notice must the company give before terminating an employee?",
+      "why": "The notice section covers employee-side notice only.",
+      "output": "I don't have enough information to answer that.",
+      "refused": true
+    },
+    {
+      "question": "What health insurance cover is provided to dependants?",
+      "why": "No insurance or benefits section exists.",
+      "output": "I don't have enough information to answer that.",
+      "refused": true
+    },
+    {
+      "question": "Which public holidays does the company observe?",
+      "why": "No holiday calendar appears in the handbook.",
+      "output": "I don't have enough information to answer that.",
+      "refused": true
+    },
+    {
+      "question": "What is the annual appraisal cycle and rating scale?",
+      "why": "Performance management is not in scope of this extract.",
+      "output": "I don't have enough information to answer that.",
+      "refused": true
+    },
+    {
+      "question": "Can employees claim reimbursement for a home office chair?",
+      "why": "The remote work section sets no equipment entitlement.",
+      "output": "I don't have enough information to answer that.",
+      "refused": true
+    },
+    {
+      "question": "What is the maximum duration of unpaid sabbatical leave?",
+      "why": "Sabbaticals are not mentioned.",
+      "output": "I don't have enough information to answer that.",
+      "refused": true
+    },
+    {
+      "question": "How are overtime hours compensated?",
+      "why": "Overtime is absent from the document.",
+      "output": "I don't have enough information to answer that.",
+      "refused": true
+    }
+  ]
+}
